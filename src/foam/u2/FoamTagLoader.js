@@ -29,7 +29,11 @@ foam.CLASS({
       var clsName = el.getAttribute('class');
 
       this.classloader.load(clsName).then(function(cls) {
-        var obj = cls.create(null, foam.__context__);
+        var clsArgs = el.getAttribute('data-args');
+        if ( clsArgs !== null ) {
+          clsArgs = JSON.parse(clsArgs);
+        }
+        var obj = cls.create(clsArgs, foam.__context__);
 
         this.setAttributes(el, obj);
 
